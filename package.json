@@ -27,6 +27,7 @@
   "homepage": "https://github.com/kopytkg/Renamer#readme",
   "devDependencies": {
     "@types/node": "^20.10.0",
+    "@types/ws": "^8.5.10",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
@@ -36,5 +37,8 @@
     "prettier": "^3.1.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
   }
 }
