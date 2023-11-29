@@ -1,20 +1,25 @@
-import WebSocket from 'ws'
+import Express from 'express'
+import expressWs from 'express-ws'
+const wss = expressWs(Express())
+const app = wss.app
 
-const wss = new WebSocket.Server({ port: 8080 })
+const aWss = wss.getWss()
 
 const Clients = []
 
-console.log('Server Online on port 8080')
-
-function AllButOne(message: string, ws: WebSocket) {
-  wss.clients.forEach((client) => {
+function AllButOne(message: string, ws: unknown) {
+  aWss.clients.forEach((client) => {
     if (client !== ws) {
       client.send(message)
     }
   })
 }
 
-wss.on('connection', (ws) => {
+app.get('/', (req, res) => {
+  res.sendStatus(200)
+})
+
+app.ws('/ws', (ws) => {
   ws.on('message', (msg) => {
     const jsonData = JSON.parse(msg.toString())
     console.log(jsonData)
@@ -51,7 +56,8 @@ wss.on('connection', (ws) => {
       type: 'left',
       name: client.name,
     }
-
     AllButOne(JSON.stringify(message), ws)
   })
 })
+
+app.listen(8080)

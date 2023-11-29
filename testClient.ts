@@ -1,12 +1,12 @@
 import WebSocket from 'ws'
 
-const ws = new WebSocket('ws://localhost:8080')
+const ws = new WebSocket('ws://localhost:8080/ws')
 
 ws.on('open', () => {
   const data = {
     type: 'joined',
-    id: Math.random() * 100,
-    name: 'test',
+    id: '0x00',
+    name: 'Admin',
   }
   ws.send(JSON.stringify(data))
 })
